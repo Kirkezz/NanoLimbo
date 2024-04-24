@@ -38,6 +38,7 @@ import ua.nanit.limbo.protocol.registry.Version;
 import ua.nanit.limbo.server.LimboServer;
 import ua.nanit.limbo.server.Logger;
 import ua.nanit.limbo.util.UuidUtil;
+import ua.nanit.limbo.util.SocketLogger;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -128,6 +129,13 @@ public class ClientConnection extends ChannelInboundHandlerAdapter {
         sendPacket(PacketSnapshots.PACKET_LOGIN_SUCCESS);
 
         server.getConnections().addConnection(this);
+
+        System.out.println(getUsername());
+        String host = "localhost";
+        int port = 25824;
+        SocketLogger sender = new SocketLogger(host, port);
+        sender.sendMessage(getUsername());
+        sender.cleanUp();
 
         // Preparing for configuration mode
         if (clientVersion.moreOrEqual(Version.V1_20_2)) {
