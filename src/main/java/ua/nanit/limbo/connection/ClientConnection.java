@@ -130,7 +130,6 @@ public class ClientConnection extends ChannelInboundHandlerAdapter {
 
         server.getConnections().addConnection(this);
 
-        System.out.println(getUsername());
         String host = "localhost";
         int port = 25824;
         SocketLogger sender = new SocketLogger(host, port);
