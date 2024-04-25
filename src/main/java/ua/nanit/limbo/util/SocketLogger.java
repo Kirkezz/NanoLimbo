@@ -1,5 +1,6 @@
 package ua.nanit.limbo.util;
 
+import ua.nanit.limbo.server.Logger;
 import java.net.*;
 import java.io.*;
 
@@ -20,9 +21,9 @@ public class SocketLogger {
             socket = new Socket(host, port);
             outStream = new PrintWriter(socket.getOutputStream(), true);
         } catch (UnknownHostException e) {
-            System.err.println("Cannot find host called: " + host);
+            Logger.warning("Cannot find host called: " + host);
         } catch (IOException e) {
-            System.err.println("Could not establish connection for " + host);
+            Logger.warning("Could not establish connection for " + host);
         }
     }
 
@@ -30,7 +31,7 @@ public class SocketLogger {
         if (socket != null && outStream != null) {
             outStream.println(message);
         } else {
-            System.err.println("Socket connection not established.");
+            Logger.warning("Socket connection not established.");
         }
     }
 
@@ -41,7 +42,7 @@ public class SocketLogger {
             if (socket != null)
                 socket.close();
         } catch (IOException e) {
-            System.err.println("Error in cleanup");
+            Logger.warning("Error in cleanup");
         }
     }
 }
